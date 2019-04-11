@@ -154,9 +154,10 @@ public class Channel {
     @Override
     public String toString() {
         return "Channel{" +
-                "channelname='" + channelname
-                + '\'' + ", url= '" + url   + '\''
+                "channelname='" + channelname + '\''
+                + ", url= '" + url   + '\''
                 + ", listtype='" + listtype +'\''
+                + ", channelselected='" + channelselected +'\''
                 +
                 '}';
     }
