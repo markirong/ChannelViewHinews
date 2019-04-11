@@ -157,7 +157,7 @@ public class Channel {
                 "channelname='" + channelname
                 + '\'' + ", url= '" + url   + '\''
                 + ", listtype='" + listtype +'\''
-                + ", obj=" + obj +
+                +
                 '}';
     }
 
