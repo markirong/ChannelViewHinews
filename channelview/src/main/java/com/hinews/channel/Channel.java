@@ -4,7 +4,6 @@ public class Channel {
 //    String channelName;
 //    int channelBelong;
 
-
     Object obj;
     int code = -1;
 
@@ -16,9 +15,6 @@ public class Channel {
      String ismoved;
      String url;
      String listtype;
-
-
-
 
 //    public Channel(String channelName) {
 //        this(channelName, 1, null);
@@ -153,15 +149,14 @@ public class Channel {
 
     @Override
     public String toString() {
-        return "Channel{" +
-                "channelname='" + channelname + '\''
-                + ", url= '" + url   + '\''
-                + ", listtype='" + listtype +'\''
-                + ", channelselected='" + channelselected +'\''
+        return "{" +
+                "channelname:'" + channelname + '\''
+                + ", url:'" + url   + '\''
+                + ", listtype:'" + listtype +'\''
+                + ", channelselected:'" + channelselected +'\''
                 +
                 '}';
     }
-
 
 
 }
