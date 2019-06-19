@@ -228,16 +228,7 @@ public class ChannelView extends ScrollView {
         if (channelList != null && channelList.size() > 0) {
             if (channelContents.size() != 0) {
                 for (Channel channel : channelList) {
-//                    channel.channelBelong = channelContents.size();
                     channel.channelselected = channelContents.size()+"";
-
-
-
-
-
-
-
-
                 }
             } else {
                 myChannelCode = new int[channelList.size()];
@@ -265,6 +256,9 @@ public class ChannelView extends ScrollView {
      */
     public void setChannelEditBackground(@DrawableRes int channelEditBackground) {
         this.channelEditBackground = channelEditBackground;
+
+
+
     }
 
     /**
@@ -435,7 +429,6 @@ public class ChannelView extends ScrollView {
 
     /**
      * 设置编辑按键字体大小
-     *
      * @param unit
      * @param tipEditTextSize
      */
@@ -457,7 +450,6 @@ public class ChannelView extends ScrollView {
 
     /**
      * 设置其它频道板块的副标题背景
-     *
      * @param otherSubTitleBackground
      */
     public void setOtherSubTitleBackground(@DrawableRes int otherSubTitleBackground) {
@@ -469,7 +461,6 @@ public class ChannelView extends ScrollView {
 
     /**
      * 设置其它频道板块的副标题颜色
-     *
      * @param otherSubTitleTextColor
      */
     public void setOtherSubTitleTextColor(@ColorInt int otherSubTitleTextColor) {
@@ -481,7 +472,6 @@ public class ChannelView extends ScrollView {
 
     /**
      * 设置其它频道板块的副标题字体大小
-     *
      * @param unit
      * @param otherSubTitleTextSize
      */
@@ -501,7 +491,6 @@ public class ChannelView extends ScrollView {
 
     /**
      * 设置已选频道板块的副标题背景
-     *
      * @param subTitleBackground
      */
     public void setSubTitleBackground(@DrawableRes int subTitleBackground) {
@@ -513,7 +502,6 @@ public class ChannelView extends ScrollView {
 
     /**
      * 设置已选频道板块的副标题颜色
-     *
      * @param subTitleTextColor
      */
     public void setSubTitleTextColor(@ColorInt int subTitleTextColor) {
@@ -525,7 +513,6 @@ public class ChannelView extends ScrollView {
 
     /**
      * 设置已选频道板块的副标题字体大小
-     *
      * @param unit
      * @param subTitleTextSize
      */
@@ -545,7 +532,6 @@ public class ChannelView extends ScrollView {
 
     /**
      * 设置已选频道的副标题
-     *
      * @param subTitleName
      */
     public void setSubTitleName(String subTitleName) {
@@ -639,7 +625,6 @@ public class ChannelView extends ScrollView {
 
     /**
      * 频道序列是否发生变化
-     *
      * @return
      */
     public boolean isChange() {
@@ -665,7 +650,6 @@ public class ChannelView extends ScrollView {
     public interface OnChannelListener {
         /**
          * 频道点击
-         *
          * @param position
          * @param channel
          */
@@ -673,7 +657,6 @@ public class ChannelView extends ScrollView {
 
         /**
          * 编辑频道完成
-         *
          * @param channelList
          */
         void channelEditFinish(List<Channel> channelList);
@@ -907,14 +890,7 @@ public class ChannelView extends ScrollView {
                         channelAttr.channel = channelContent.get(i);
                         //为频道添加ChannelAttr属性
                         textView.setTag(channelAttr);
-//                        textView.setText(channelContent.get(i).channelName);
                         textView.setText(channelContent.get(i).channelname);
-
-
-
-
-
-
                         textView.setGravity(Gravity.CENTER);
                         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, channelTextSize);
                         if (j == 0) {
@@ -1063,24 +1039,20 @@ public class ChannelView extends ScrollView {
                         //普通状态时进行点击事件回调
                         if (onChannelListener != null) {
                             onChannelListener.channelItemClick(channels.indexOf(v), ((ChannelAttr) v.getTag()).channel);
-
                                 onChannelListener.channelEditFinish(getMyChannel());
-
-
                             }
                     }
-                } else {//点击的其他频道组中的频道
-
-
-                    forwardSort(v, channels);
-                    //增加我的频道
-                    addMyChannel(v);
-                    if (onChannelListener != null) {
-
-                        onChannelListener.channelEditFinish(getMyChannel());
-
-
+                } else {
+                    if ( channels.indexOf(v) >= 1) {
+                        forwardSort(v, channels);
+                        //增加我的频道
+                        addMyChannel(v);
                     }
+
+                    if (onChannelListener != null) {
+                        onChannelListener.channelEditFinish(getMyChannel());
+                    }
+
                 }
             }
         }
@@ -1140,7 +1112,6 @@ public class ChannelView extends ScrollView {
 
         /**
          * 增加我的频道
-         *
          * @param v
          */
         private void addMyChannel(final View v) {
@@ -1194,7 +1165,6 @@ public class ChannelView extends ScrollView {
 
         /**
          * 删除我的频道
-         *
          * @param v
          */
         private void deleteMyChannel(View v) {
@@ -1204,13 +1174,7 @@ public class ChannelView extends ScrollView {
                 v.setBackgroundResource(channelNormalBackground);
             }
             ChannelAttr tag = (ChannelAttr) v.getTag();
-//            int belong = tag.channel.channelBelong;
             int belong = Integer.valueOf(tag.channel.channelselected);
-
-
-
-
-
 
             if (belong < 1 || belong > channelContents.size() - 1) {
                 belong = 1;
