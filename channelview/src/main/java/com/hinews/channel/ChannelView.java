@@ -1034,8 +1034,8 @@ public class ChannelView extends ScrollView {
                         forwardSort(v, channels);
                         deleteMyChannel(v);
                     } else if (channelClickType == NORMAL) {
-                        if (onChannelListener != null) {
-                            onChannelListener.channelItemClick(channels.indexOf(v), ((ChannelAttr) v.getTag()).channel);
+                        if (onChannelListener != null &&  channels.size() < channelColumn*8) {
+                                onChannelListener.channelItemClick(channels.indexOf(v), ((ChannelAttr) v.getTag()).channel);
                                 onChannelListener.channelEditFinish(getMyChannel());
                             }
                     }
@@ -1059,7 +1059,7 @@ public class ChannelView extends ScrollView {
             v.bringToFront();
             ArrayList<View> views = channelGroups.get(0);
             int indexOf = views.indexOf(v);
-            if (indexOf >= channelFixedCount) {
+            if (indexOf >= channelFixedCount  &&  views.size() < channelColumn*8) {
                 for (int i = channelFixedCount; i < views.size(); i++) {
                     if (i == indexOf) {
                         views.get(i).setBackgroundResource(channelFocusedBackground);
