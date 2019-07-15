@@ -43,9 +43,7 @@ public class ChannelView extends ScrollView {
      * 列数
      */
     private int channelColumn = 4;
-
     private int channelWidth;
-
     private int channelHeight;
 
     /**
@@ -1021,7 +1019,7 @@ public class ChannelView extends ScrollView {
                 if (onChannelListener != null) {
                     onChannelListener.channelEditStart();
                 }
-            } else if (v == tipFinish) {//点击完成按钮时
+            } else if (v == tipFinish) {
                 changeTip(false);
                 if (onChannelListener != null) {
                     onChannelListener.channelEditFinish(getMyChannel());
@@ -1029,30 +1027,26 @@ public class ChannelView extends ScrollView {
             } else {
                 ChannelAttr tag = (ChannelAttr) v.getTag();
                 ArrayList<View> channels = channelGroups.get(tag.groupIndex);
-                //如果点击的是我的频道组中的频道
                 if (tag.groupIndex == 0) {
-                    if (channelClickType == DELETE && channels.indexOf(v) >= channelFixedCount) {
+                    if (channelClickType == DELETE && channels.indexOf(v) >= channelFixedCount
+                            &&  channels.size() < channelColumn*8
+                    ) {
                         forwardSort(v, channels);
-                        //减少我的频道
                         deleteMyChannel(v);
                     } else if (channelClickType == NORMAL) {
-                        //普通状态时进行点击事件回调
                         if (onChannelListener != null) {
                             onChannelListener.channelItemClick(channels.indexOf(v), ((ChannelAttr) v.getTag()).channel);
                                 onChannelListener.channelEditFinish(getMyChannel());
                             }
                     }
                 } else {
-                    if ( channels.indexOf(v) >= 1) {
+                    if ( channels.size()>1) {
                         forwardSort(v, channels);
-                        //增加我的频道
                         addMyChannel(v);
                     }
-
                     if (onChannelListener != null) {
                         onChannelListener.channelEditFinish(getMyChannel());
                     }
-
                 }
             }
         }
@@ -1077,7 +1071,6 @@ public class ChannelView extends ScrollView {
                 changeTip(true);
             }
             isAccessDrag = true;
-            //要返回true，否则会触发onclick事件
             return true;
         }
 
@@ -1088,13 +1081,6 @@ public class ChannelView extends ScrollView {
             }
             changeTip(true);
         }
-
-        /**
-         * 后面的频道向前排序
-         *
-         * @param v
-         * @param channels
-         */
         private void forwardSort(View v, ArrayList<View> channels) {
             int size = channels.size();
             int indexOfValue = channels.indexOf(v);
@@ -1109,13 +1095,7 @@ public class ChannelView extends ScrollView {
                 }
             }
         }
-
-        /**
-         * 增加我的频道
-         * @param v
-         */
         private void addMyChannel(final View v) {
-            //让点击的view置于最前方，避免遮挡
             v.bringToFront();
             ChannelAttr tag = (ChannelAttr) v.getTag();
             ArrayList<View> channels = channelGroups.get(tag.groupIndex);
@@ -1162,11 +1142,6 @@ public class ChannelView extends ScrollView {
             }
             tag.groupIndex = 0;
         }
-
-        /**
-         * 删除我的频道
-         * @param v
-         */
         private void deleteMyChannel(View v) {
             //让点击的view置于最前方，避免遮挡
             v.bringToFront();
